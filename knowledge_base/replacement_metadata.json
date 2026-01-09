@@ -5,21 +5,21 @@
       "output": "knowledge_base\\Akatsuki.txt",
       "replacements": 189,
       "original_length": 30736,
-      "new_length": 31336
+      "new_length": 31268
     },
     {
       "input": "cleaned_texts\\Byakugan.txt",
       "output": "knowledge_base\\Byakugan.txt",
-      "replacements": 96,
+      "replacements": 99,
       "original_length": 9343,
-      "new_length": 9531
+      "new_length": 9557
     },
     {
       "input": "cleaned_texts\\Chidori.txt",
       "output": "knowledge_base\\Chidori.txt",
       "replacements": 60,
       "original_length": 5819,
-      "new_length": 6187
+      "new_length": 6018
     },
     {
       "input": "cleaned_texts\\Choji_Akimichi.txt",
@@ -47,7 +47,7 @@
       "output": "knowledge_base\\Eight_Gates.txt",
       "replacements": 47,
       "original_length": 7596,
-      "new_length": 7677
+      "new_length": 7629
     },
     {
       "input": "cleaned_texts\\Fourth_Great_Ninja_War.txt",
@@ -59,16 +59,16 @@
     {
       "input": "cleaned_texts\\Gaara.txt",
       "output": "knowledge_base\\Gaara.txt",
-      "replacements": 953,
+      "replacements": 985,
       "original_length": 85038,
-      "new_length": 93403
+      "new_length": 89213
     },
     {
       "input": "cleaned_texts\\Hashirama_Senju.txt",
       "output": "knowledge_base\\Hashirama_Senju.txt",
       "replacements": 169,
       "original_length": 35638,
-      "new_length": 36799
+      "new_length": 36121
     },
     {
       "input": "cleaned_texts\\Hinata_Hyuga.txt",
@@ -101,44 +101,44 @@
     {
       "input": "cleaned_texts\\Itachi_Uchiha.txt",
       "output": "knowledge_base\\Itachi_Uchiha.txt",
-      "replacements": 332,
+      "replacements": 342,
       "original_length": 63510,
-      "new_length": 65132
+      "new_length": 64681
     },
     {
       "input": "cleaned_texts\\Iwagakure.txt",
       "output": "knowledge_base\\Iwagakure.txt",
       "replacements": 63,
       "original_length": 6946,
-      "new_length": 7371
+      "new_length": 7129
     },
     {
       "input": "cleaned_texts\\Jiraiya.txt",
       "output": "knowledge_base\\Jiraiya.txt",
-      "replacements": 743,
-      "original_length": 69313,
-      "new_length": 75023
+      "replacements": 1,
+      "original_length": 228,
+      "new_length": 233
     },
     {
       "input": "cleaned_texts\\Kakashi_Hatake.txt",
       "output": "knowledge_base\\Kakashi_Hatake.txt",
-      "replacements": 607,
+      "replacements": 630,
       "original_length": 135415,
-      "new_length": 139158
+      "new_length": 137671
     },
     {
       "input": "cleaned_texts\\Kirigakure.txt",
       "output": "knowledge_base\\Kirigakure.txt",
       "replacements": 62,
       "original_length": 9077,
-      "new_length": 9446
+      "new_length": 9174
     },
     {
       "input": "cleaned_texts\\Konohagakure.txt",
       "output": "knowledge_base\\Konohagakure.txt",
-      "replacements": 149,
+      "replacements": 155,
       "original_length": 13156,
-      "new_length": 14077
+      "new_length": 13838
     },
     {
       "input": "cleaned_texts\\Kumogakure.txt",
@@ -152,21 +152,21 @@
       "output": "knowledge_base\\Madara_Uchiha.txt",
       "replacements": 225,
       "original_length": 51442,
-      "new_length": 52401
+      "new_length": 52009
     },
     {
       "input": "cleaned_texts\\Minato_Namikaze.txt",
       "output": "knowledge_base\\Minato_Namikaze.txt",
-      "replacements": 238,
+      "replacements": 241,
       "original_length": 42991,
-      "new_length": 44785
+      "new_length": 43824
     },
     {
       "input": "cleaned_texts\\Naruto_Uzumaki.txt",
       "output": "knowledge_base\\Naruto_Uzumaki.txt",
-      "replacements": 997,
+      "replacements": 1037,
       "original_length": 227345,
-      "new_length": 233000
+      "new_length": 230348
     },
     {
       "input": "cleaned_texts\\Neji_Hyuga.txt",
@@ -185,9 +185,9 @@
     {
       "input": "cleaned_texts\\Obito_Uchiha.txt",
       "output": "knowledge_base\\Obito_Uchiha.txt",
-      "replacements": 346,
+      "replacements": 351,
       "original_length": 80777,
-      "new_length": 82539
+      "new_length": 81834
     },
     {
       "input": "cleaned_texts\\One-Tailed_Shukaku.txt",
@@ -199,30 +199,30 @@
     {
       "input": "cleaned_texts\\Orochimaru.txt",
       "output": "knowledge_base\\Orochimaru.txt",
-      "replacements": 622,
+      "replacements": 635,
       "original_length": 72398,
-      "new_length": 76334
+      "new_length": 73371
     },
     {
       "input": "cleaned_texts\\Rasengan.txt",
       "output": "knowledge_base\\Rasengan.txt",
       "replacements": 103,
       "original_length": 10976,
-      "new_length": 11284
+      "new_length": 11244
     },
     {
       "input": "cleaned_texts\\Rinnegan.txt",
       "output": "knowledge_base\\Rinnegan.txt",
       "replacements": 116,
       "original_length": 11841,
-      "new_length": 12218
+      "new_length": 12194
     },
     {
       "input": "cleaned_texts\\Rock_Lee.txt",
       "output": "knowledge_base\\Rock_Lee.txt",
-      "replacements": 269,
+      "replacements": 294,
       "original_length": 62577,
-      "new_length": 64227
+      "new_length": 63601
     },
     {
       "input": "cleaned_texts\\Sage_Mode.txt",
@@ -241,77 +241,77 @@
     {
       "input": "cleaned_texts\\Sasuke_Uchiha.txt",
       "output": "knowledge_base\\Sasuke_Uchiha.txt",
-      "replacements": 803,
+      "replacements": 839,
       "original_length": 199735,
-      "new_length": 204112
+      "new_length": 202284
     },
     {
       "input": "cleaned_texts\\Senju_Clan.txt",
       "output": "knowledge_base\\Senju_Clan.txt",
       "replacements": 35,
       "original_length": 5603,
-      "new_length": 5793
+      "new_length": 5713
     },
     {
       "input": "cleaned_texts\\Shadow_Clone_Technique.txt",
       "output": "knowledge_base\\Shadow_Clone_Technique.txt",
-      "replacements": 0,
-      "original_length": 258,
-      "new_length": 258
+      "replacements": 31,
+      "original_length": 6470,
+      "new_length": 6403
     },
     {
       "input": "cleaned_texts\\Sharingan.txt",
       "output": "knowledge_base\\Sharingan.txt",
       "replacements": 101,
       "original_length": 11451,
-      "new_length": 11503
+      "new_length": 11673
     },
     {
       "input": "cleaned_texts\\Shikamaru_Nara.txt",
       "output": "knowledge_base\\Shikamaru_Nara.txt",
-      "replacements": 485,
+      "replacements": 519,
       "original_length": 145190,
-      "new_length": 148602
+      "new_length": 147117
     },
     {
       "input": "cleaned_texts\\Sunagakure.txt",
       "output": "knowledge_base\\Sunagakure.txt",
-      "replacements": 83,
+      "replacements": 85,
       "original_length": 8326,
-      "new_length": 9022
+      "new_length": 8593
     },
     {
       "input": "cleaned_texts\\Tobirama_Senju.txt",
       "output": "knowledge_base\\Tobirama_Senju.txt",
-      "replacements": 141,
+      "replacements": 147,
       "original_length": 30410,
-      "new_length": 31444
+      "new_length": 30841
     },
     {
       "input": "cleaned_texts\\Tsunade.txt",
       "output": "knowledge_base\\Tsunade.txt",
-      "replacements": 825,
+      "replacements": 831,
       "original_length": 74524,
-      "new_length": 81218
+      "new_length": 78297
     },
     {
       "input": "cleaned_texts\\Uchiha_Clan.txt",
       "output": "knowledge_base\\Uchiha_Clan.txt",
       "replacements": 83,
       "original_length": 14402,
-      "new_length": 14739
+      "new_length": 14676
     },
     {
       "input": "cleaned_texts\\Uzumaki_Clan.txt",
       "output": "knowledge_base\\Uzumaki_Clan.txt",
-      "replacements": 30,
+      "replacements": 31,
       "original_length": 4297,
-      "new_length": 4400
+      "new_length": 4369
     }
   ],
   "failed": [],
   "total_files": 44,
   "success": 44,
-  "total_replacements": 8973,
+  "total_replacements": 8507,
   "terms_map_file": "terms_map.json"
 }

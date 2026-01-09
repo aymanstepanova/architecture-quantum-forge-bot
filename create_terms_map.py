@@ -1,193 +1,216 @@
-"""
+"""create_terms_map.py
+
 Скрипт для создания словаря замен терминов из мира Наруто
 Генерирует вымышленные названия для персонажей, техник, деревень и других сущностей
 """
 
+from __future__ import annotations
+
 import json
-import random
-import string
+import os
+from datetime import datetime
 
-def generate_fake_name(base_length=None):
-    """Генерирует вымышленное имя"""
-    if base_length is None:
-        base_length = random.randint(5, 10)
-    
-    # Используем комбинацию согласных и гласных для более естественных имен
-    consonants = 'bcdfghjklmnprstvwxyz'
-    vowels = 'aeiou'
-    
-    name = ''
-    for i in range(base_length):
-        if i % 2 == 0:
-            name += random.choice(consonants).upper() if i == 0 else random.choice(consonants)
-        else:
-            name += random.choice(vowels)
-    
-    return name
+# -----------------------------
+# 1) БАЗОВЫЙ СЛОВАРЬ
+# -----------------------------
 
-def generate_tech_name():
-    """Генерирует название техники"""
-    prefixes = ['Void', 'Shadow', 'Light', 'Dark', 'Crystal', 'Storm', 'Flame', 'Ice', 'Thunder', 'Wind']
-    suffixes = ['Strike', 'Blade', 'Wave', 'Sphere', 'Beam', 'Rush', 'Burst', 'Edge', 'Core', 'Force']
-    return f"{random.choice(prefixes)} {random.choice(suffixes)}"
-
-def generate_place_name():
-    """Генерирует название места"""
-    prefixes = ['Ver', 'Kor', 'Zar', 'Nex', 'Thal', 'Mor', 'Val', 'Eld']
-    suffixes = ['gard', 'heim', 'vale', 'port', 'haven', 'keep', 'hold', 'gate']
-    return f"{random.choice(prefixes)}{random.choice(suffixes)}"
-
-# Словарь замен для мира Наруто
-TERMS_MAP = {
+TERMS_MAP_BASE: dict[str, str] = {
     # Персонажи
     "Naruto Uzumaki": "Kael Vexaris",
-    "Sasuke Uchiha": "Zephyr Darkwind",
-    "Sakura Haruno": "Lyra Brightstone",
-    "Kakashi Hatake": "Raven Shadowblade",
-    "Itachi Uchiha": "Vex Nightshade",
-    "Madara Uchiha": "Malakor Voidheart",
-    "Obito Uchiha": "Orion Shadowweaver",
-    "Hashirama Senju": "Haldor Stormborn",
-    "Tobirama Senju": "Toren Frostweaver",
-    "Hiruzen Sarutobi": "Haven Ironwill",
-    "Minato Namikaze": "Miran Swiftblade",
-    "Jiraiya": "Jaxon Wavecaller",
-    "Tsunade": "Thalia Goldheart",
-    "Orochimaru": "Oren Serpentfang",
-    "Gaara": "Gareth Sandstorm",
-    "Rock Lee": "Rex Ironfist",
-    "Neji Hyuga": "Nolan Skysight",
-    "Hinata Hyuga": "Helena Stargaze",
-    "Shikamaru Nara": "Silas Shadowmind",
-    "Choji Akimichi": "Corbin Boulderheart",
-    "Ino Yamanaka": "Iris Mindweaver",
-    
-    # Кланы
-    "Uchiha Clan": "Voidheart Clan",
-    "Senju Clan": "Stormborn Clan",
-    "Hyuga Clan": "Skysight Clan",
-    "Uzumaki Clan": "Vexaris Clan",
-    "Nara Clan": "Shadowmind Clan",
-    "Akimichi Clan": "Boulderheart Clan",
-    "Yamanaka Clan": "Mindweaver Clan",
-    
-    # Деревни
-    "Konohagakure": "Verdantgate",
-    "Sunagakure": "Sandhaven",
-    "Kirigakure": "Mistport",
-    "Kumogakure": "Cloudkeep",
-    "Iwagakure": "Stonehold",
-    "Konoha": "Verdantgate",
-    "Sunagakure": "Sandhaven",
-    "Kirigakure": "Mistport",
-    "Kumogakure": "Cloudkeep",
-    "Iwagakure": "Stonehold",
-    
-    # Техники
-    "Rasengan": "Void Sphere",
-    "Chidori": "Thunder Strike",
-    "Shadow Clone Technique": "Phantom Duplication",
-    "Sharingan": "Void Eye",
-    "Rinnegan": "Eternal Gaze",
-    "Byakugan": "Sky Vision",
-    "Sage Mode": "Primal State",
+    "Sasuke Uchiha": "Sael Noctryn",
+    "Sakura Haruno": "Lyra Caelum",
+    "Kakashi Hatake": "Riven Ashcroft",
+    "Itachi Uchiha": "Varyn Noctryn",
+    "Madara Uchiha": "Malrec Axiom",
+    "Obito Uchiha": "Orin Veilborn",
+    "Hashirama Senju": "Haldor Prime",
+    "Tobirama Senju": "Torren Cipher",
+    "Hiruzen Sarutobi": "Eldric Vane",
+    "Minato Namikaze": "Miren Flux",
+    "Jiraiya": "Jax Orenthal",
+    "Tsunade": "Thalia Merrow",
+    "Orochimaru": "Oren Khelt",
+    "Gaara": "Gareth Dune",
+    "Rock Lee": "Rex Unbound",
+    "Neji Hyuga": "Nolan Aurel",
+    "Hinata Hyuga": "Helia Aurel",
+    "Shikamaru Nara": "Silas Korr",
+    "Choji Akimichi": "Corin Masson",
+    "Ino Yamanaka": "Iris Vale",
+
+    # Кланы (в Narutopedia часто "Clan")
+    "Uchiha Clan": "Noctryn Line",
+    "Senju Clan": "Prime Line",
+    "Hyuga Clan": "Aurel Line",
+    "Uzumaki Clan": "Vexaris Line",
+    "Nara Clan": "Korr Line",
+    "Akimichi Clan": "Masson Line",
+    "Yamanaka Clan": "Vale Line",
+
+    # Деревни/локации
+    "Konohagakure": "Verdant Reach",
+    "Konoha": "Verdant Reach",
+    "Sunagakure": "Ash Dunes",
+    "Kirigakure": "Mistfall",
+    "Kumogakure": "Highspire",
+    "Iwagakure": "Stonebound",
+
+    # Онтология (чтобы LLM не могла восстановить Naruto по памяти)
+    "Chakra": "Axiom",
+    "Jutsu": "Pattern",
+    "Ninja": "Operative",
+    "Shinobi": "Operative",
+
+    # Ранги
+    "Genin": "Initiate",
+    "Chunin": "Binder",
+    "Jonin": "Executor",
+
+    # Титулы
+    "Kage": "Warden",
+    "Hokage": "Verdant Warden",
+    "Kazekage": "Dune Warden",
+    "Mizukage": "Mist Warden",
+    "Raikage": "Spire Warden",
+    "Tsuchikage": "Stone Warden",
+
+    # Техники/концепты
+    "Rasengan": "Axiom Spiral",
+    "Rasenshuriken": "Fracture Spiral",
+    "Chidori": "Impulse Arc",
+    "Shadow Clone Technique": "Echo Manifest",
+    "Sage Mode": "Primal Alignment",
     "Eight Gates": "Eight Seals",
-    "Rasenshuriken": "Void Shuriken",
-    "Amaterasu": "Void Flame",
-    "Susanoo": "Void Guardian",
-    "Kamui": "Void Shift",
-    "Tsukuyomi": "Void Dream",
-    "Izanagi": "Void Creation",
-    "Izanami": "Void Cycle",
-    
+
+    # Глаза/способности
+    "Sharingan": "Crimson Lens",
+    "Rinnegan": "Parallax Eye",
+    "Byakugan": "Clear Sight",
+
+    # Легендарные способности
+    "Amaterasu": "Black Pyre",
+    "Susanoo": "Aegis Manifest",
+    "Kamui": "Phase Fold",
+    "Tsukuyomi": "Lucid Snare",
+    "Izanagi": "Causal Override",
+    "Izanami": "Recursive Bind",
+
     # Хвостатые звери
-    "Nine-Tailed Fox": "Nine-Tailed Void Fox",
+    "Nine-Tailed Fox": "Ninefold Apex",
     "Kurama": "Korvax",
-    "One-Tailed Shukaku": "One-Tailed Sand Spirit",
+    "One-Tailed Shukaku": "Dune Apex",
     "Shukaku": "Shakor",
-    "Eight-Tailed Gyuki": "Eight-Tailed Storm Ox",
+    "Eight-Tailed Gyuki": "Storm Apex",
     "Gyuki": "Gryx",
-    
+
     # Организации
-    "Akatsuki": "Void Order",
-    "ANBU": "Shadow Guard",
-    
+    "Akatsuki": "Red Covenant",
+    "ANBU": "Black Cell",
+
     # События
-    "Fourth Great Ninja War": "Fourth Great Shadow War",
-    "Chunin Exams": "Apprentice Trials",
-    "Great Ninja War": "Great Shadow War",
-    
-    # Другие термины
-    "Ninja": "Shadow Warrior",
-    "Shinobi": "Shadow Warrior",
-    "Chakra": "Essence",
-    "Jutsu": "Technique",
-    "Genin": "Apprentice",
-    "Chunin": "Warrior",
-    "Jonin": "Master",
-    "Kage": "Shadow Lord",
-    "Hokage": "Shadow Lord of Verdantgate",
-    "Kazekage": "Shadow Lord of Sandhaven",
-    "Mizukage": "Shadow Lord of Mistport",
-    "Raikage": "Shadow Lord of Cloudkeep",
-    "Tsuchikage": "Shadow Lord of Stonehold",
+    "Chunin Exams": "Initiate Trials",
+    "Great Ninja War": "Continental Conflict",
+    "Fourth Great Ninja War": "Fourth Continental Conflict",
 }
 
-def create_terms_map():
-    """Создает и сохраняет словарь замен"""
-    # Добавляем варианты написания
-    extended_map = {}
-    
-    for original, replacement in TERMS_MAP.items():
-        # Основная замена
-        extended_map[original] = replacement
-        
-        # Варианты с разным регистром
-        extended_map[original.lower()] = replacement.lower()
-        extended_map[original.upper()] = replacement.upper()
-        extended_map[original.title()] = replacement.title()
-        
-        # Если есть пробелы, добавляем варианты без пробелов
-        if ' ' in original:
-            extended_map[original.replace(' ', '')] = replacement.replace(' ', '')
-            extended_map[original.replace(' ', '_')] = replacement.replace(' ', '_')
-            extended_map[original.replace(' ', '-')] = replacement.replace(' ', '-')
-    
-    return extended_map
 
-def main():
-    print("Создание словаря замен терминов...")
-    
-    terms_map = create_terms_map()
-    
-    # Сохраняем основной словарь (только оригинальные пары)
-    output_map = {k: v for k, v in TERMS_MAP.items()}
-    
-    with open('terms_map.json', 'w', encoding='utf-8') as f:
-        json.dump(output_map, f, ensure_ascii=False, indent=2)
-    
-    print(f"✓ Создан словарь с {len(output_map)} основными терминами")
-    print(f"✓ Всего вариантов замен: {len(terms_map)}")
-    print(f"✓ Сохранено в terms_map.json")
-    
-    # Выводим статистику
-    characters = [k for k in output_map.keys() if any(char.isupper() and k[0].isupper() for char in k) and 'Clan' not in k and 'gakure' not in k and 'Village' not in k and not any(tech in k for tech in ['Rasengan', 'Chidori', 'Sharingan', 'Rinnegan', 'Byakugan', 'Sage', 'Gates', 'Amaterasu', 'Susanoo', 'Kamui', 'Tsukuyomi', 'Izanagi', 'Izanami'])]
-    clans = [k for k in output_map.keys() if 'Clan' in k]
-    villages = [k for k in output_map.keys() if 'gakure' in k or k in ['Konoha']]
-    techniques = [k for k in output_map.keys() if k not in characters + clans + villages]
-    
-    categories = {
-        'Персонажи': characters,
-        'Кланы': clans,
-        'Деревни': villages,
-        'Техники': techniques,
+# -----------------------------
+# 2) ДОБАВЛЕНИЕ ВАРИАНТОВ НАПИСАНИЯ
+# -----------------------------
+
+def with_diacritics(base_map: dict[str, str]) -> dict[str, str]:
+    """Добавляет в карту распространенные варианты с макронами (Hyūga, Chūnin, Jōnin).
+
+    Мы делаем это именно здесь (в terms_map.json), потому что apply_replacements.py
+    ищет по ключам из JSON (пусть и с IGNORECASE), но НЕ нормализует диакритику.
+    """
+
+    extended = dict(base_map)
+
+    # Hyuga -> Hyūga (персонажи и клан)
+    macrons = {
+        "Hyuga": "Hyūga",
+        "Chunin": "Chūnin",
+        "Jonin": "Jōnin",
     }
-    
-    print("\nСтатистика по категориям:")
-    for category, terms in categories.items():
-        if terms:
-            print(f"  {category}: {len(terms)}")
+
+    for plain, macron in macrons.items():
+        # пробегаем по ключам, где встречается plain, добавляем вариант с macron
+        for k, v in list(extended.items()):
+            if plain in k:
+                extended[k.replace(plain, macron)] = v
+
+    return extended
+
+
+# -----------------------------
+# 3) README для knowledge_base/
+# -----------------------------
+
+def write_kb_readme(output_dir: str, terms_map: dict[str, str]) -> None:
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Небольшая «паспортная» информация + краткая логика подмены
+    lines = []
+    lines.append("# Knowledge Base (Task 2)\n")
+    lines.append("Эта папка содержит уникальную базу знаний для проверки RAG.\n")
+    lines.append("Исходные тексты взяты из Narutopedia, затем очищены от HTML и переписаны через подмену терминов.\n")
+
+    lines.append("## Принцип подмены терминов\n")
+    lines.append("- Подмена не является переводом: изменена онтология мира (например, `Chakra → Axiom`, `Jutsu → Pattern`).")
+    lines.append("- Термины заменяются так, чтобы модель не могла восстановить вселенную по памяти.")
+    lines.append("- Для совместимости добавлены варианты написания с диакритикой (Hyūga, Chūnin, Jōnin).\n")
+
+    lines.append("## Файлы\n")
+    lines.append("- `terms_map.json` — словарь замен (лежит в корне репозитория и копируется в эту папку на последнем шаге).")
+    lines.append("- `replacement_metadata.json` — статистика замен (создаётся скриптом `apply_replacements.py`).")
+    lines.append("\n")
+
+    # Короткий сэмпл, чтобы README выглядел «живым», но не раздувать файл
+    sample_keys = [
+        "Naruto Uzumaki",
+        "Konoha",
+        "Chakra",
+        "Jutsu",
+        "Hokage",
+        "Akatsuki",
+        "Sharingan",
+        "Chunin Exams",
+    ]
+    lines.append("## Примеры замен\n")
+    for k in sample_keys:
+        if k in terms_map:
+            lines.append(f"- `{k}` → `{terms_map[k]}`")
+
+    lines.append("\n")
+    lines.append(f"_Сгенерировано: {datetime.now().isoformat(timespec='seconds')}_\n")
+
+    readme_path = os.path.join(output_dir, "README.md")
+    with open(readme_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
+
+# -----------------------------
+# 4) MAIN
+# -----------------------------
+
+def main() -> None:
+    print("Создание словаря замен терминов...")
+
+    terms_map = with_diacritics(TERMS_MAP_BASE)
+
+    # Пишем terms_map.json в корень (ожидается apply_replacements.py)
+    out_path = "terms_map.json"
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(terms_map, f, ensure_ascii=False, indent=2)
+
+    print(f"✓ Сохранено: {out_path}")
+    print(f"✓ Терминов: {len(terms_map)} (включая варианты с диакритикой)")
+
+    # Создаем knowledge_base/README.md (директория может быть пустой до последнего шага)
+    write_kb_readme("knowledge_base", terms_map)
+    print("✓ Создано: knowledge_base/README.md")
+
 
 if __name__ == "__main__":
     main()
-
