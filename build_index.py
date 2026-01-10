@@ -21,8 +21,19 @@ except ImportError:
     # Fallback для старых версий LangChain
     from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Chroma
+# Импорты эмбеддингов с поддержкой новых и старых версий
+try:
+    from langchain_huggingface import HuggingFaceEmbeddings
+except ImportError:
+    # Fallback для старых версий LangChain
+    from langchain_community.embeddings import HuggingFaceEmbeddings
+
+# Импорты ChromaDB с поддержкой новых и старых версий
+try:
+    from langchain_chroma import Chroma
+except ImportError:
+    # Fallback для старых версий LangChain
+    from langchain_community.vectorstores import Chroma
 
 # Импорт Document с поддержкой разных версий
 try:
@@ -151,8 +162,10 @@ def create_vector_index(chunks: List[Document], vector_db_dir: Path) -> Chroma:
         collection_name="knowledge_base",
     )
     
-    # Сохранение индекса на диск
-    vectorstore.persist()
+    # Сохранение индекса на диск (для старых версий Chroma)
+    # В новых версиях сохранение происходит автоматически при создании
+    if hasattr(vectorstore, 'persist'):
+        vectorstore.persist()
     
     print(f"Векторный индекс сохранён в: {vector_db_dir}")
     
