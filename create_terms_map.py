@@ -146,6 +146,7 @@ def with_diacritics(base_map: dict[str, str]) -> dict[str, str]:
         "Hyuga": "Hyūga",
         "Chunin": "Chūnin",
         "Jonin": "Jōnin",
+        "Mangekyo": "Mangekyō",
     }
 
     for plain, macron in macrons.items():

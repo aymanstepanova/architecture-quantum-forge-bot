@@ -18,7 +18,6 @@
 
 ## Примеры замен
 
-- `Naruto Uzumaki` → `Kael Vexaris`
 - `Konoha` → `Verdant Reach`
 - `Chakra` → `Axiom`
 - `Jutsu` → `Pattern`
@@ -28,4 +27,4 @@
 - `Chunin Exams` → `Initiate Trials`
 
 
-_Сгенерировано: 2026-01-10T01:49:21_
+_Сгенерировано: 2026-01-11T02:46:40_
