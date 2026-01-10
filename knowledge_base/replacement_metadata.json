@@ -17,9 +17,9 @@
     {
       "input": "cleaned_texts\\Byakugan.txt",
       "output": "knowledge_base\\Byakugan.txt",
-      "replacements": 121,
+      "replacements": 122,
       "original_length": 9343,
-      "new_length": 9545
+      "new_length": 9540
     },
     {
       "input": "cleaned_texts\\Chidori.txt",
@@ -45,9 +45,9 @@
     {
       "input": "cleaned_texts\\Gaara.txt",
       "output": "knowledge_base\\Gaara.txt",
-      "replacements": 1318,
+      "replacements": 1320,
       "original_length": 85038,
-      "new_length": 88735
+      "new_length": 88725
     },
     {
       "input": "cleaned_texts\\Genin.txt",
@@ -101,30 +101,30 @@
     {
       "input": "cleaned_texts\\Kabuto_Yakushi.txt",
       "output": "knowledge_base\\Kabuto_Yakushi.txt",
-      "replacements": 578,
+      "replacements": 580,
       "original_length": 59046,
-      "new_length": 59334
+      "new_length": 59324
     },
     {
       "input": "cleaned_texts\\Kakashi_Hatake.txt",
       "output": "knowledge_base\\Kakashi_Hatake.txt",
-      "replacements": 2084,
+      "replacements": 2086,
       "original_length": 135415,
-      "new_length": 138761
+      "new_length": 138751
     },
     {
       "input": "cleaned_texts\\Kekkei_Genkai.txt",
       "output": "knowledge_base\\Kekkei_Genkai.txt",
-      "replacements": 91,
+      "replacements": 167,
       "original_length": 17134,
-      "new_length": 17178
+      "new_length": 16798
     },
     {
       "input": "cleaned_texts\\Kirigakure.txt",
       "output": "knowledge_base\\Kirigakure.txt",
-      "replacements": 81,
+      "replacements": 83,
       "original_length": 9077,
-      "new_length": 9180
+      "new_length": 9170
     },
     {
       "input": "cleaned_texts\\Konohagakure.txt",
@@ -150,9 +150,9 @@
     {
       "input": "cleaned_texts\\Madara_Uchiha.txt",
       "output": "knowledge_base\\Madara_Uchiha.txt",
-      "replacements": 772,
+      "replacements": 773,
       "original_length": 51442,
-      "new_length": 51657
+      "new_length": 51652
     },
     {
       "input": "cleaned_texts\\Matatabi.txt",
@@ -185,9 +185,9 @@
     {
       "input": "cleaned_texts\\Orochimaru.txt",
       "output": "knowledge_base\\Orochimaru.txt",
-      "replacements": 924,
+      "replacements": 928,
       "original_length": 72398,
-      "new_length": 72957
+      "new_length": 72937
     },
     {
       "input": "cleaned_texts\\Rasengan.txt",
@@ -199,9 +199,9 @@
     {
       "input": "cleaned_texts\\Rinnegan.txt",
       "output": "knowledge_base\\Rinnegan.txt",
-      "replacements": 151,
+      "replacements": 152,
       "original_length": 11841,
-      "new_length": 12161
+      "new_length": 12156
     },
     {
       "input": "cleaned_texts\\Sage_Mode.txt",
@@ -213,9 +213,9 @@
     {
       "input": "cleaned_texts\\Sakura_Haruno.txt",
       "output": "knowledge_base\\Sakura_Haruno.txt",
-      "replacements": 2045,
+      "replacements": 2046,
       "original_length": 137986,
-      "new_length": 137032
+      "new_length": 137027
     },
     {
       "input": "cleaned_texts\\Sannin.txt",
@@ -248,9 +248,9 @@
     {
       "input": "cleaned_texts\\Sharingan.txt",
       "output": "knowledge_base\\Sharingan.txt",
-      "replacements": 136,
+      "replacements": 139,
       "original_length": 11451,
-      "new_length": 11677
+      "new_length": 11662
     },
     {
       "input": "cleaned_texts\\Shikamaru_Nara.txt",
@@ -297,9 +297,9 @@
     {
       "input": "cleaned_texts\\Uchiha_Clan.txt",
       "output": "knowledge_base\\Uchiha_Clan.txt",
-      "replacements": 269,
+      "replacements": 270,
       "original_length": 14402,
-      "new_length": 14648
+      "new_length": 14643
     },
     {
       "input": "cleaned_texts\\Uzumaki_Clan.txt",
@@ -312,6 +312,6 @@
   "failed": [],
   "total_files": 44,
   "success": 44,
-  "total_replacements": 25914,
+  "total_replacements": 26010,
   "terms_map_file": "terms_map.json"
 }

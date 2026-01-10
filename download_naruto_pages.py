@@ -52,6 +52,7 @@ NARUTO_PAGES = [
     "https://naruto.fandom.com/wiki/Byakugan",
     "https://naruto.fandom.com/wiki/Sage_Mode",
     "https://naruto.fandom.com/wiki/Eight_Gates",
+    "https://naruto.fandom.com/wiki/Kekkei_Genkai",
 
     # Деревни и организации
     "https://naruto.fandom.com/wiki/Konohagakure",

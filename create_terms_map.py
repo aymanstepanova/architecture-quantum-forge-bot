@@ -29,8 +29,11 @@ TERMS_MAP_BASE: dict[str, str] = {
     "Neji": "Nolan",
     "Hinata": "Helia",
 
-    "Sakura Haruno": "Lyra Caelum",
-    "Kakashi Hatake": "Riven Ashcroft",
+    "Minato": "Dart",
+    "Sakura": "Lyra",
+    "Haruno": "Caelum",
+    "Kakashi": "Doggydaddy",
+    "Hatake": "Gray",
 
     "Senju": "Prime",
     "Hashirama": "Haldor",
@@ -97,6 +100,8 @@ TERMS_MAP_BASE: dict[str, str] = {
 
     # Глаза/способности
     "Sharingan": "Crimson Lens",
+    "Mangekyō": "Advanced",
+    "Mangekyo": "Advanced",
     "Rinnegan": "Parallax Eye",
     "Byakugan": "Clear Sight",
 
@@ -107,6 +112,7 @@ TERMS_MAP_BASE: dict[str, str] = {
     "Tsukuyomi": "Lucid Snare",
     "Izanagi": "Causal Override",
     "Izanami": "Recursive Bind",
+    "Kekkei Genkai": "Mutation",
 
     # Хвостатые звери
     "Nine-Tailed Fox": "Ninefold Apex",
