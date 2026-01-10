@@ -13,18 +13,28 @@ from datetime import datetime
 # -----------------------------
 # 1) БАЗОВЫЙ СЛОВАРЬ
 # -----------------------------
-
 TERMS_MAP_BASE: dict[str, str] = {
     # Персонажи
-    "Naruto Uzumaki": "Kael Vexaris",
-    "Sasuke Uchiha": "Sael Noctryn",
+    "Uzumaki": "Vexaris",  # клановое имя
+    "Naruto": "Kael",
+
+    "Uchiha": "Noctryn", # клановое имя
+    "Sasuke": "Sael",
+    "Itachi": "Varyn",
+    "Madara": "Malrec",
+    "Obito": "Orin",
+
+
+    "Hyuga": "Aurel", # клановое имя
+    "Neji": "Nolan",
+    "Hinata": "Helia",
+
     "Sakura Haruno": "Lyra Caelum",
     "Kakashi Hatake": "Riven Ashcroft",
-    "Itachi Uchiha": "Varyn Noctryn",
-    "Madara Uchiha": "Malrec Axiom",
-    "Obito Uchiha": "Orin Veilborn",
-    "Hashirama Senju": "Haldor Prime",
-    "Tobirama Senju": "Torren Cipher",
+
+    "Senju": "Prime",
+    "Hashirama": "Haldor",
+    "Tobirama": "Torren",
     "Hiruzen Sarutobi": "Eldric Vane",
     "Minato Namikaze": "Miren Flux",
     "Jiraiya": "Jax Orenthal",
@@ -32,13 +42,15 @@ TERMS_MAP_BASE: dict[str, str] = {
     "Orochimaru": "Oren Khelt",
     "Gaara": "Gareth Dune",
     "Rock Lee": "Rex Unbound",
-    "Neji Hyuga": "Nolan Aurel",
-    "Hinata Hyuga": "Helia Aurel",
+
+
     "Shikamaru Nara": "Silas Korr",
     "Choji Akimichi": "Corin Masson",
     "Ino Yamanaka": "Iris Vale",
 
     # Кланы (в Narutopedia часто "Clan")
+    "Clan": "Line",
+
     "Uchiha Clan": "Noctryn Line",
     "Senju Clan": "Prime Line",
     "Hyuga Clan": "Aurel Line",
@@ -65,6 +77,7 @@ TERMS_MAP_BASE: dict[str, str] = {
     "Genin": "Initiate",
     "Chunin": "Binder",
     "Jonin": "Executor",
+    "Sannin": "Geezer", # все саннины - старикашки, логично же
 
     # Титулы
     "Kage": "Warden",
@@ -102,6 +115,7 @@ TERMS_MAP_BASE: dict[str, str] = {
     "Shukaku": "Shakor",
     "Eight-Tailed Gyuki": "Storm Apex",
     "Gyuki": "Gryx",
+    "Matatabi": "Kitekat",
 
     # Организации
     "Akatsuki": "Red Covenant",
