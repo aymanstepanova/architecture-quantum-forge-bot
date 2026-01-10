@@ -78,6 +78,13 @@
       "new_length": 13384
     },
     {
+      "input": "cleaned_texts\\Ino_Yamanaka.txt",
+      "output": "knowledge_base\\Ino_Yamanaka.txt",
+      "replacements": 714,
+      "original_length": 80412,
+      "new_length": 80698
+    },
+    {
       "input": "cleaned_texts\\Iwagakure.txt",
       "output": "knowledge_base\\Iwagakure.txt",
       "replacements": 67,
@@ -104,6 +111,13 @@
       "replacements": 2084,
       "original_length": 135415,
       "new_length": 138761
+    },
+    {
+      "input": "cleaned_texts\\Kekkei_Genkai.txt",
+      "output": "knowledge_base\\Kekkei_Genkai.txt",
+      "replacements": 91,
+      "original_length": 17134,
+      "new_length": 17178
     },
     {
       "input": "cleaned_texts\\Kirigakure.txt",
@@ -167,6 +181,13 @@
       "replacements": 1167,
       "original_length": 80777,
       "new_length": 81354
+    },
+    {
+      "input": "cleaned_texts\\Orochimaru.txt",
+      "output": "knowledge_base\\Orochimaru.txt",
+      "replacements": 924,
+      "original_length": 72398,
+      "new_length": 72957
     },
     {
       "input": "cleaned_texts\\Rasengan.txt",
@@ -289,8 +310,8 @@
     }
   ],
   "failed": [],
-  "total_files": 41,
-  "success": 41,
-  "total_replacements": 24185,
+  "total_files": 44,
+  "success": 44,
+  "total_replacements": 25914,
   "terms_map_file": "terms_map.json"
 }
