@@ -112,7 +112,7 @@ bot.chat("Что такое Crimson Lens?")
 ### Вариант B: Запуск примеров
 
 ```bash
-# Скопировать примеры в контейнер и запустить
+# Запустить примеры диалогов с ботом
 docker-compose exec rag-bot python rag_bot_examples.py
 ```
 

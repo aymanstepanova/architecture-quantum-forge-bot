@@ -44,7 +44,7 @@ FROM deps AS rag-bot
 
 WORKDIR /app
 
-COPY rag_bot.py build_index.py telegram_bot.py ./
+COPY rag_bot.py build_index.py telegram_bot.py rag_bot_examples.py rag_bot_repl.py ./
 
 ENV PYTHONUNBUFFERED=1
 
