@@ -9,43 +9,43 @@ participant "VectorStore(Chroma)" as VS
 participant "LLM(OpenAI/Ollama)" as LLM
 participant "analysis_logs.py" as Analyze
 
-Eval -> Evaluate : run golden_questions.txt
+Eval -> Evaluate : запуск golden_questions.txt
 activate Evaluate
 
-loop for_each_question
-  Evaluate -> Bot : generate_answer(query)
+loop для каждого вопроса
+  Evaluate -> Bot : generate_answer(запрос)
   activate Bot
 
-  Bot -> VS : similarity_search_with_score(query,k)
+  Bot -> VS : similarity_search_with_score(запрос, k)
   activate VS
-  VS --> Bot : context_chunks + scores
+  VS --> Bot : фрагменты_контекста + scores
   deactivate VS
 
-  alt protection_enabled
+  alt защита включена
     Bot -> Bot : filter_malicious_chunks()
   end
 
-  alt no_chunks_or_low_relevance
-    Bot --> Evaluate : answer="не знаю"/"не нашёл"
-  else has_context
-    Bot -> LLM : chat(system_prompt,user_prompt_with_context)
+  alt нет фрагментов или низкая релевантность
+    Bot --> Evaluate : ответ="не знаю"/"не нашёл"
+  else контекст найден
+    Bot -> LLM : chat(system_prompt, user_prompt_с_контекстом)
     activate LLM
-    LLM --> Bot : completion(answer [+ reasoning])
+    LLM --> Bot : completion(ответ [+ reasoning])
     deactivate LLM
-    Bot --> Evaluate : answer + context_chunks + reasoning
+    Bot --> Evaluate : ответ + фрагменты_контекста + reasoning
   end
   deactivate Bot
 
-  Evaluate -> Logger : append(JSONL_record)
+  Evaluate -> Logger : append(JSONL_запись)
 end
 
-Evaluate -> Evaluate : compute metrics (accuracy, PRF)
-Evaluate --> Eval : write evaluation_results.json
+Evaluate -> Evaluate : расчёт метрик (accuracy, PRF)
+Evaluate --> Eval : запись evaluation_results.json
 deactivate Evaluate
 
-Eval -> Analyze : analyze logs.jsonl
+Eval -> Analyze : анализ logs.jsonl
 activate Analyze
-Analyze --> Eval : write analysis_report.md
+Analyze --> Eval : запись analysis_report.md
 deactivate Analyze
 
 note right of Bot
