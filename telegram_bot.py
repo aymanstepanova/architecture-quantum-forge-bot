@@ -14,6 +14,8 @@ from typing import Iterable, List
 
 from telegram import Update
 from telegram.constants import ChatAction
+from telegram.request import HTTPXRequest
+from telegram.error import NetworkError, TimedOut
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
@@ -31,6 +33,10 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s %(name)s: %(message)s",
 )
 logger = logging.getLogger("telegram_bot")
+
+# Не засвечиваем токен в логах httpx/httpcore (они логируют URL целиком).
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("httpcore").setLevel(logging.WARNING)
 
 
 def _split_telegram_message(text: str, max_len: int = 4000) -> List[str]:
@@ -125,13 +131,28 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         return
 
     try:
-        await update.message.chat.send_action(action=ChatAction.TYPING)
+        # typing — необязательная операция, на сетевых сбоях не валим обработку
+        try:
+            await update.message.chat.send_action(action=ChatAction.TYPING)
+        except (TimedOut, NetworkError):
+            pass
 
         # RAGBot синхронный; чтобы не блокировать event loop — в thread
         answer = await asyncio.to_thread(RAG.chat, query, False, True)
 
         for part in _split_telegram_message(answer):
-            await update.message.reply_text(part)
+            # Иногда Telegram API может рвать соединение/тормозить — делаем 2 попытки.
+            last_exc: Exception | None = None
+            for attempt in range(2):
+                try:
+                    await update.message.reply_text(part)
+                    last_exc = None
+                    break
+                except (TimedOut, NetworkError) as e:
+                    last_exc = e
+                    await asyncio.sleep(1.0 + attempt)
+            if last_exc is not None:
+                raise last_exc
     except Exception as e:
         logger.exception("Ошибка обработки сообщения: %s", e)
         await update.message.reply_text(
@@ -141,7 +162,15 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
 
 def main() -> None:
     token = _require_env("TELEGRAM_BOT_TOKEN")
-    application = ApplicationBuilder().token(token).build()
+
+    # Увеличиваем таймауты: иначе при долгом ответе/сети может падать sendMessage.
+    tg_request = HTTPXRequest(
+        connect_timeout=30.0,
+        read_timeout=60.0,
+        write_timeout=60.0,
+        pool_timeout=30.0,
+    )
+    application = ApplicationBuilder().token(token).request(tg_request).build()
 
     application.add_handler(CommandHandler("start", start_cmd))
     application.add_handler(CommandHandler("help", help_cmd))
