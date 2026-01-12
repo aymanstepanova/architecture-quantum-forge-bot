@@ -1,6 +1,9 @@
 requests>=2.31.0
 beautifulsoup4>=4.12.0
 lxml>=4.9.0
-langchain-huggingface
-langchain-chroma
+langchain>=0.1.0,<1.0.0
+langchain-huggingface>=0.1.0,<1.0.0
+langchain-chroma>=0.1.0,<1.0.0
+# ВАЖНО: chromadb 1.x ломает совместимость persist/HNSW в этом проекте.
+chromadb>=0.5.0,<0.6.0
 
