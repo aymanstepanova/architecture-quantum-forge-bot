@@ -20,6 +20,7 @@ import os
 import re
 import time
 import json
+import shutil
 from pathlib import Path
 from typing import List, Dict
 
@@ -64,6 +65,119 @@ TERMS_MAP_FILE = Path("knowledge_base/terms_map.json")
 # Параметры разбиения на чанки
 CHUNK_SIZE = 500  # Примерно 500 токенов
 CHUNK_OVERLAP = 50  # Перекрытие между чанками для сохранения контекста
+
+
+def _windows_short_path(path: Path) -> str:
+    """
+    Возвращает короткий (8.3) путь на Windows.
+
+    Зачем:
+    - hnswlib/Chroma на Windows иногда не умеют работать с Unicode-путями
+      (например, если в пути есть кириллица: C:\\Учеба\\...),
+      что приводит к ошибкам вида "Cannot open header file" / "Error loading hnsw index".
+
+    Если короткий путь получить нельзя (например, отключены 8.3 имена),
+    возвращает исходный путь.
+    """
+    p = Path(path)
+    if os.name != "nt":
+        return str(p)
+
+    try:
+        import ctypes
+        from ctypes import wintypes
+
+        GetShortPathNameW = ctypes.windll.kernel32.GetShortPathNameW
+        GetShortPathNameW.argtypes = [wintypes.LPCWSTR, wintypes.LPWSTR, wintypes.DWORD]
+        GetShortPathNameW.restype = wintypes.DWORD
+
+        in_path = str(p.resolve())
+        # 0 = узнать нужный размер
+        needed = GetShortPathNameW(in_path, None, 0)
+        if needed == 0:
+            return in_path
+        buf = ctypes.create_unicode_buffer(needed)
+        res = GetShortPathNameW(in_path, buf, needed)
+        if res == 0:
+            return in_path
+        return buf.value
+    except Exception:
+        return str(p)
+
+
+def _parse_major(version_str: str) -> int:
+    """
+    Возвращает major-версию (до первой точки). Если распарсить нельзя — 0.
+    """
+    try:
+        return int((version_str or "0").split(".")[0])
+    except Exception:
+        return 0
+
+
+def assert_supported_versions() -> None:
+    """
+    Fail-fast: не даём собирать/читать индекс в несовместимых версиях.
+
+    В этом проекте persist/HNSW формат Chroma сильно зависит от версии.
+    Практика показала, что chromadb 1.x и/или langchain 1.x приводят к
+    битым/нечитаемым индексам (например, 'Error loading hnsw index', KeyError '_type').
+    """
+    try:
+        import chromadb  # type: ignore
+        chroma_ver = getattr(chromadb, "__version__", "0")
+    except Exception:
+        chroma_ver = "0"
+
+    try:
+        import langchain  # type: ignore
+        lc_ver = getattr(langchain, "__version__", "0")
+    except Exception:
+        lc_ver = "0"
+
+    chroma_major = _parse_major(chroma_ver)
+    lc_major = _parse_major(lc_ver)
+
+    if chroma_major >= 1 or lc_major >= 1:
+        raise RuntimeError(
+            "Несовместимые версии зависимостей для этого проекта.\n"
+            f"- chromadb: {chroma_ver}\n"
+            f"- langchain: {lc_ver}\n\n"
+            "Для корректной работы индекса используйте версии из requirements_task6.txt "
+            "(chromadb 0.5.x и langchain 0.x), затем пересоберите индекс."
+        )
+
+
+def backup_and_clear_vector_index(vector_db_dir: Path) -> None:
+    """
+    Перед пересборкой индекса делаем best-effort бэкап и чистим директорию,
+    чтобы избежать смешивания форматов/коллекций.
+    """
+    if not vector_db_dir.exists():
+        vector_db_dir.mkdir(parents=True, exist_ok=True)
+        return
+
+    # если директория пуста — просто используем её
+    try:
+        has_files = any(p.is_file() for p in vector_db_dir.rglob("*"))
+    except Exception:
+        has_files = True
+
+    if not has_files:
+        return
+
+    backup_root = Path("vector_index_backup")
+    ts = time.strftime("%Y-%m-%dT%H%M%SZ", time.gmtime())
+    backup_dir = backup_root / f"before_build_index_{ts}"
+    try:
+        backup_root.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(vector_db_dir, backup_dir)
+    except Exception:
+        # best-effort
+        pass
+
+    shutil.rmtree(vector_db_dir, ignore_errors=True)
+    vector_db_dir.mkdir(parents=True, exist_ok=True)
 
 
 def load_documents(knowledge_base_dir: Path) -> List[Document]:
@@ -151,6 +265,8 @@ def create_vector_index(chunks: List[Document], vector_db_dir: Path) -> Chroma:
     Returns:
         Объект Chroma с векторным индексом
     """
+    assert_supported_versions()
+
     print(f"\nИнициализация модели эмбеддингов: {EMBEDDING_MODEL_NAME}")
     print("Это может занять некоторое время при первом запуске (загрузка модели)...")
     
@@ -167,7 +283,7 @@ def create_vector_index(chunks: List[Document], vector_db_dir: Path) -> Chroma:
     vectorstore = Chroma.from_documents(
         documents=chunks,
         embedding=embeddings,
-        persist_directory=str(vector_db_dir),
+        persist_directory=_windows_short_path(vector_db_dir),
         collection_name="knowledge_base",
     )
     
@@ -302,6 +418,8 @@ def load_vectorstore(vector_db_dir: Path = None) -> Chroma:
     Returns:
         Объект Chroma с загруженным индексом
     """
+    assert_supported_versions()
+
     if vector_db_dir is None:
         vector_db_dir = VECTOR_DB_DIR
     
@@ -317,7 +435,7 @@ def load_vectorstore(vector_db_dir: Path = None) -> Chroma:
     )
     
     vectorstore = Chroma(
-        persist_directory=str(vector_db_dir),
+        persist_directory=_windows_short_path(vector_db_dir),
         embedding_function=embeddings,
         collection_name="knowledge_base",
     )
@@ -380,6 +498,7 @@ def test_search(vectorstore: Chroma, test_queries: List[str] = None, use_query_e
 
 def main():
     """Основная функция для построения векторного индекса."""
+    assert_supported_versions()
     start_time = time.time()
     
     print("="*60)
@@ -397,8 +516,8 @@ def main():
         print(f"\nОШИБКА: Директория {KNOWLEDGE_BASE_DIR} не найдена!")
         return
     
-    # Создание выходной директории
-    VECTOR_DB_DIR.mkdir(exist_ok=True)
+    # Чистая пересборка (с best-effort бэкапом)
+    backup_and_clear_vector_index(VECTOR_DB_DIR)
     
     # 1. Загрузка документов
     print("\n" + "="*60)
