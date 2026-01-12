@@ -168,6 +168,7 @@ docker-compose exec rag-bot python -c "from rag_bot import RAGBot; bot = RAGBot(
 # 4. Проверить расписание обновления индекса
 docker-compose exec kb-updater cat /etc/cron.d/update_index
 ```
+![img.png](img.png)
 
 ## Управление контейнерами
 
