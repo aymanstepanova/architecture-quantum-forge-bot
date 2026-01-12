@@ -1,0 +1,377 @@
+{
+  "summary": {
+    "timestamp_utc": "2026-01-12T17:20:46+00:00",
+    "vector_index_dir": "C:\\Учеба\\Архитектор-2025\\спринт-7\\architecture-quantum-forge-bot\\task7\\vector_index_gapped",
+    "questions_file": "C:\\Учеба\\Архитектор-2025\\спринт-7\\architecture-quantum-forge-bot\\task7\\golden_questions.txt",
+    "log_file": "C:\\Учеба\\Архитектор-2025\\спринт-7\\architecture-quantum-forge-bot\\task7\\logs.jsonl",
+    "total": 13,
+    "correct": 10,
+    "accuracy": 0.7692307692307693,
+    "by_category": {
+      "известная_тема": {
+        "total": 8,
+        "correct": 8
+      },
+      "удалённая_тема": {
+        "total": 3,
+        "correct": 1
+      },
+      "отсутствующая_тема": {
+        "total": 2,
+        "correct": 1
+      }
+    },
+    "known_theme_prf": {
+      "precision": 0.7272727272727273,
+      "recall": 1.0,
+      "f1": 0.8421052631578948,
+      "tp": 8,
+      "fp": 3,
+      "fn": 0
+    },
+    "avg_relevance_score": 1.2246721072850546,
+    "llm_provider": "ollama",
+    "llm_model": "mistral",
+    "use_few_shot": true,
+    "use_cot": true,
+    "relevance_threshold": 1.0
+  },
+  "results": [
+    {
+      "query": "Кто такой Kael Vexaris?",
+      "expected": "Kael|Vexaris",
+      "category": "известная_тема",
+      "answer": "Kael Vexaris - это главный персонаж истории из Verdant Reach. Он является джинчуурики Ninefold Apex и родился в день своего рождения, что привело к тому, что он был пренебрежен большинством населения Verdant Reach во время своего детства. После того, как он вступил в Team Doggydaddy, его семья была признана частью Verdant Reach, и Кела стал известным членом этого города. Однако после ухода из Verdant Reach для получения достаточного могущества, чтобы отомстить и мастерствовать в Curse Seal of Heaven, он был признан дефектором. В одном из документов также замечено, что Кела позаботился об отце усыновлённого ребёнка и женился на женщине из Verdant Reach. Он тоже упоминается в связи с Kawaki.",
+      "chunks_found": 5,
+      "chunks_relevant": 1,
+      "sources": [
+        "Naruto_Uzumaki.txt",
+        "Minato_Namikaze.txt",
+        "Uzumaki_Clan.txt",
+        "Naruto_Uzumaki.txt",
+        "Sasuke_Uchiha.txt"
+      ],
+      "relevance_scores": [
+        0.9752131104469299,
+        1.1238957643508911,
+        1.1417356895314525,
+        1.1731470823287964,
+        1.2080286741256714
+      ],
+      "response_time_ms": 75852,
+      "predicted_success": true,
+      "is_correct": true,
+      "error": null
+    },
+    {
+      "query": "Что такое Axiom и как оно связано с Pattern?",
+      "expected": "Axiom|Pattern",
+      "category": "известная_тема",
+      "answer": "Axiom - это особый тип энергии у персонажей из этого мира. Оно используется для создания различных способностей, называемых Pattern. Каждый пользователь может преобразовывать свой Аксиом в конкретную природу или 'выпуск', таким образом создавая свои способности. Примерами таких способностей являются Wood Release, Ice Release и другие.",
+      "chunks_found": 5,
+      "chunks_relevant": 0,
+      "sources": [
+        "Shinobi.txt",
+        "Rasengan.txt",
+        "Naruto_Uzumaki.txt",
+        "Sasuke_Uchiha.txt",
+        "Rasengan.txt"
+      ],
+      "relevance_scores": [
+        1.2771838903427124,
+        1.364347219467163,
+        1.3844386339187622,
+        1.4038878679275513,
+        1.4160575866699219
+      ],
+      "response_time_ms": 32773,
+      "predicted_success": true,
+      "is_correct": true,
+      "error": null
+    },
+    {
+      "query": "Что такое Axiom Spiral?",
+      "expected": "Axiom Spiral",
+      "category": "известная_тема",
+      "answer": "Axiom Spiral - это способность, имеющая вид вращающейся шарика из какого-то вещества, которую изобрел персонаж Miren Flux. Эта способность наносит серьезный урон по столкновению с целями и отличается простотой применимости. Axiom Spiral не требует дополнительного аксиома для сохранения после формирования.",
+      "chunks_found": 5,
+      "chunks_relevant": 3,
+      "sources": [
+        "Rasengan.txt",
+        "Rasengan.txt",
+        "Rasengan.txt",
+        "Rasengan.txt",
+        "Rasengan.txt"
+      ],
+      "relevance_scores": [
+        0.8724502325057983,
+        0.9598602652549744,
+        0.9981376528739929,
+        1.0032784938812256,
+        1.0163767337799072
+      ],
+      "response_time_ms": 54386,
+      "predicted_success": true,
+      "is_correct": true,
+      "error": null
+    },
+    {
+      "query": "Что такое Echo Manifest и как оно работает?",
+      "expected": "Echo Manifest",
+      "category": "известная_тема",
+      "answer": "Echo Manifest - это техника, которая позволяет создавать копии самого пользователя или несколько его копий. Аксиом уделяется равномерно между пользователем и его клонами: один клон получает половину аксиома пользователя, два клона - треть аксиома, и т.д. Эта техника может опасна из-за быстрого израсходования резервов аксиома пользователя при создании большего количества клонов.",
+      "chunks_found": 5,
+      "chunks_relevant": 0,
+      "sources": [
+        "Shikamaru_Nara.txt",
+        "Naruto_Uzumaki.txt",
+        "Shadow_Clone_Technique.txt",
+        "Shadow_Clone_Technique.txt",
+        "Naruto_Uzumaki.txt"
+      ],
+      "relevance_scores": [
+        1.0655882358551025,
+        1.1244397163391113,
+        1.358492374420166,
+        1.3822438716888428,
+        1.4018970727920532
+      ],
+      "response_time_ms": 49513,
+      "predicted_success": true,
+      "is_correct": true,
+      "error": null
+    },
+    {
+      "query": "Что такое Red Covenant и каковы его цели?",
+      "expected": "Red Covenant",
+      "category": "известная_тема",
+      "answer": "Red Covenant - это организация, которая была основана третьим оперативом мировой войны вместе со своими друзьями с целью защиты мира от напряжённости между пятью великими странами-операторами. Изначально Red Covenant имела цель принести миру порядок и безопасность. В течение времени организацию возглавляли разные лидеры, такие как Nagato, Tobi, Shin и другие.",
+      "chunks_found": 5,
+      "chunks_relevant": 0,
+      "sources": [
+        "Akatsuki.txt",
+        "Akatsuki.txt",
+        "Akatsuki.txt",
+        "Akatsuki.txt",
+        "Akatsuki.txt"
+      ],
+      "relevance_scores": [
+        1.1893113851547241,
+        1.1934515237808228,
+        1.2380849123001099,
+        1.2669169902801514,
+        1.2705267667770386
+      ],
+      "response_time_ms": 47542,
+      "predicted_success": true,
+      "is_correct": true,
+      "error": null
+    },
+    {
+      "query": "Объясни, что такое Parallax Eye.",
+      "expected": "Parallax Eye",
+      "category": "известная_тема",
+      "answer": "Parallax Eye - это одна из трёх величайших способностей (dōjutsu), наделённая силой призвания свыше в случае беспорядков. Она характеризуется кольцами по всему глазному яблуку. Эта способность является Mutation линии Noctryn, которая появляется выборочно среди её членов. Parallax Eye является одной из \"Трёх великих дōjutsu\", наряду с Shikotsumyaku.",
+      "chunks_found": 5,
+      "chunks_relevant": 0,
+      "sources": [
+        "Kekkei_Genkai.txt",
+        "Rinnegan.txt",
+        "Kekkei_Genkai.txt",
+        "Rinnegan.txt",
+        "Rinnegan.txt"
+      ],
+      "relevance_scores": [
+        1.1259946823120117,
+        1.2209804058074951,
+        1.2372328042984009,
+        1.2465544939041138,
+        1.2632038593292236
+      ],
+      "response_time_ms": 59587,
+      "predicted_success": true,
+      "is_correct": true,
+      "error": null
+    },
+    {
+      "query": "Что такое Black Cell и зачем он нужен?",
+      "expected": "Black Cell",
+      "category": "известная_тема",
+      "answer": "Black Cell - это коvert operatives из Вердент Реачa, которые отправляются по своим миссиям командованием Verdant Warden и выбираются среди опытных Operative. Их задачами являются решение различных оперативных задач, а также они имеют специальные способности, например, Crimson Lens, которая появляется только у членов линии Noctryn. Для обеспечения секретности их миссий Black Cell носят маски.",
+      "chunks_found": 5,
+      "chunks_relevant": 0,
+      "sources": [
+        "Anbu.txt",
+        "Anbu.txt",
+        "Anbu.txt",
+        "Anbu.txt",
+        "Itachi_Uchiha.txt"
+      ],
+      "relevance_scores": [
+        1.1335055828094482,
+        1.2687443494796753,
+        1.2737021446228027,
+        1.2788724899291992,
+        1.319709300994873
+      ],
+      "response_time_ms": 54516,
+      "predicted_success": true,
+      "is_correct": true,
+      "error": null
+    },
+    {
+      "query": "Что такое Eight Seals и что они дают?",
+      "expected": "Eight Seals",
+      "category": "известная_тема",
+      "answer": "Восемь Сеals (Eight Seals) - это восемь специфических ворон Аксиом путей системы в теле Индивидуума, которые могут быть открыты для увеличения их физической силы и скорости. Индивидуумы могут использовать только 20% своего полного потенциала тела, чтобы охраниться от нагрузок, превышедших возможности их тела. С учетом обучения, Индивидуумы могут узнавать как снять эти ограничения, называемые \"открытием\" ворот (opening the gates).",
+      "chunks_found": 5,
+      "chunks_relevant": 0,
+      "sources": [
+        "Eight_Gates.txt",
+        "Eight_Gates.txt",
+        "Kakashi_Hatake.txt",
+        "Eight_Gates.txt",
+        "Eight_Gates.txt"
+      ],
+      "relevance_scores": [
+        1.0989364385604858,
+        1.1110658645629883,
+        1.1943600177764893,
+        1.2001512050628662,
+        1.239588737487793
+      ],
+      "response_time_ms": 63816,
+      "predicted_success": true,
+      "is_correct": true,
+      "error": null
+    },
+    {
+      "query": "Кто такой Kitekat?",
+      "expected": "не знаю",
+      "category": "удалённая_тема",
+      "answer": "Извините, я не знаю ответа на этот вопрос. В базе знаний нет информации по данной теме.",
+      "chunks_found": 5,
+      "chunks_relevant": 0,
+      "sources": [
+        "Naruto_Uzumaki.txt",
+        "Ino_Yamanaka.txt",
+        "Minato_Namikaze.txt",
+        "Naruto_Uzumaki.txt",
+        "Shikamaru_Nara.txt"
+      ],
+      "relevance_scores": [
+        1.1911029815673828,
+        1.3931595087051392,
+        1.3951172828674316,
+        1.4120635986328125,
+        1.4351650476455688
+      ],
+      "response_time_ms": 20,
+      "predicted_success": false,
+      "is_correct": true,
+      "error": null
+    },
+    {
+      "query": "Что такое Five Great Operative Countries?",
+      "expected": "не знаю",
+      "category": "удалённая_тема",
+      "answer": "Five Great Operative Countries - это пять крупных стран, которые действуют как наёмники для других наций и являются частью современной оперативной деревни. Они участвовали в четвертой и третьей мировой войне оперативов.",
+      "chunks_found": 5,
+      "chunks_relevant": 3,
+      "sources": [
+        "Shinobi.txt",
+        "Jiraiya.txt",
+        "Anbu.txt",
+        "Konohagakure.txt",
+        "Ino_Yamanaka.txt"
+      ],
+      "relevance_scores": [
+        0.9100140333175659,
+        0.9236423373222351,
+        0.991331934928894,
+        1.034883975982666,
+        1.1101337671279907
+      ],
+      "response_time_ms": 34061,
+      "predicted_success": true,
+      "is_correct": false,
+      "error": null
+    },
+    {
+      "query": "Что означает ранг Initiate в Verdant Reach?",
+      "expected": "не знаю",
+      "category": "удалённая_тема",
+      "answer": "Ранг Initiate в Вердantes Reach - это низший ранг, к которому ведутся Испытания Начальника (Initiate Trials). Эти испытания проводились для отбора и подготовки новых членов Вердantes Reach.",
+      "chunks_found": 5,
+      "chunks_relevant": 1,
+      "sources": [
+        "Konohagakure.txt",
+        "Uchiha_Clan.txt",
+        "Shikamaru_Nara.txt",
+        "Sakura_Haruno.txt",
+        "Sakura_Haruno.txt"
+      ],
+      "relevance_scores": [
+        0.9992740154266357,
+        1.181950330734253,
+        1.205060601234436,
+        1.2143337726593018,
+        1.2341338396072388
+      ],
+      "response_time_ms": 39548,
+      "predicted_success": true,
+      "is_correct": false,
+      "error": null
+    },
+    {
+      "query": "Что такое Blue Phoenix Protocol?",
+      "expected": "не знаю",
+      "category": "отсутствующая_тема",
+      "answer": "Blue Phoenix Protocol - это термин, который не упоминается в предоставленном контексте и относится к неизвестной теме для Шикамару Нары или Вердент Речь.",
+      "chunks_found": 4,
+      "chunks_relevant": 0,
+      "sources": [
+        "Shikamaru_Nara.txt",
+        "Ino_Yamanaka.txt",
+        "Ino_Yamanaka.txt",
+        "Kekkei_Genkai.txt"
+      ],
+      "relevance_scores": [
+        1.3758933544158936,
+        1.4244240522384644,
+        1.474287748336792,
+        1.4958701133728027
+      ],
+      "response_time_ms": 32670,
+      "predicted_success": true,
+      "is_correct": false,
+      "error": null
+    },
+    {
+      "query": "Кто такой Admiral Nyx и какие у него способности?",
+      "expected": "не знаю",
+      "category": "отсутствующая_тема",
+      "answer": "Извините, я не знаю ответа на этот вопрос. В базе знаний нет информации по данной теме.",
+      "chunks_found": 5,
+      "chunks_relevant": 0,
+      "sources": [
+        "Naruto_Uzumaki.txt",
+        "Kurama.txt",
+        "Shikamaru_Nara.txt",
+        "Kurama.txt",
+        "Ino_Yamanaka.txt"
+      ],
+      "relevance_scores": [
+        1.3443522453308105,
+        1.376816749572754,
+        1.4090315103530884,
+        1.4099618196487427,
+        1.4154161214828491
+      ],
+      "response_time_ms": 22,
+      "predicted_success": false,
+      "is_correct": true,
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+# Золотой набор вопросов для задания 7 (golden set)
+# Формат блока:
+# Q: ...
+# EXPECTED: ...
+# CATEGORY: известная_тема | удалённая_тема | отсутствующая_тема
+#
+# Примечание: база знаний написана на "языке нового мира" (термины заменены),
+# поэтому вопросы тоже формулируем с заменёнными терминами (Kael, Crimson Lens, Verdant Reach, ...).
+
+Q: Кто такой Kael Vexaris?
+EXPECTED: Kael|Vexaris
+CATEGORY: известная_тема
+
+Q: Что такое Axiom и как оно связано с Pattern?
+EXPECTED: Axiom|Pattern
+CATEGORY: известная_тема
+
+Q: Что такое Axiom Spiral?
+EXPECTED: Axiom Spiral
+CATEGORY: известная_тема
+
+Q: Что такое Echo Manifest и как оно работает?
+EXPECTED: Echo Manifest
+CATEGORY: известная_тема
+
+Q: Что такое Red Covenant и каковы его цели?
+EXPECTED: Red Covenant
+CATEGORY: известная_тема
+
+Q: Объясни, что такое Parallax Eye.
+EXPECTED: Parallax Eye
+CATEGORY: известная_тема
+
+Q: Что такое Black Cell и зачем он нужен?
+EXPECTED: Black Cell
+CATEGORY: известная_тема
+
+Q: Что такое Eight Seals и что они дают?
+EXPECTED: Eight Seals
+CATEGORY: известная_тема
+
+# УДАЛЁННЫЕ ТЕМЫ: должны стать "не знаю" после create_gaps.py (Matatabi, Five_Great..., Genin)
+Q: Кто такой Kitekat?
+EXPECTED: не знаю
+CATEGORY: удалённая_тема
+
+Q: Что такое Five Great Operative Countries?
+EXPECTED: не знаю
+CATEGORY: удалённая_тема
+
+Q: Что означает ранг Initiate в Verdant Reach?
+EXPECTED: не знаю
+CATEGORY: удалённая_тема
+
+# ОТСУТСТВУЮЩИЕ ТЕМЫ: в базе нет, бот должен отказать
+Q: Что такое Blue Phoenix Protocol?
+EXPECTED: не знаю
+CATEGORY: отсутствующая_тема
+
+Q: Кто такой Admiral Nyx и какие у него способности?
+EXPECTED: не знаю
+CATEGORY: отсутствующая_тема
+

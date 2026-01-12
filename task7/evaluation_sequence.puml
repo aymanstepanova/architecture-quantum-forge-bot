@@ -1,0 +1,59 @@
+@startuml
+title Task7_Evaluation_Sequence
+
+actor Evaluator as Eval
+participant "evaluate.py" as Evaluate
+participant "RAGLogger" as Logger
+participant "RAGBot" as Bot
+participant "VectorStore(Chroma)" as VS
+participant "LLM(OpenAI/Ollama)" as LLM
+participant "analysis_logs.py" as Analyze
+
+Eval -> Evaluate : run golden_questions.txt
+activate Evaluate
+
+loop for_each_question
+  Evaluate -> Bot : generate_answer(query)
+  activate Bot
+
+  Bot -> VS : similarity_search_with_score(query,k)
+  activate VS
+  VS --> Bot : context_chunks + scores
+  deactivate VS
+
+  alt protection_enabled
+    Bot -> Bot : filter_malicious_chunks()
+  end
+
+  alt no_chunks_or_low_relevance
+    Bot --> Evaluate : answer="не знаю"/"не нашёл"
+  else has_context
+    Bot -> LLM : chat(system_prompt,user_prompt_with_context)
+    activate LLM
+    LLM --> Bot : completion(answer [+ reasoning])
+    deactivate LLM
+    Bot --> Evaluate : answer + context_chunks + reasoning
+  end
+  deactivate Bot
+
+  Evaluate -> Logger : append(JSONL_record)
+end
+
+Evaluate -> Evaluate : compute metrics (accuracy, PRF)
+Evaluate --> Eval : write evaluation_results.json
+deactivate Evaluate
+
+Eval -> Analyze : analyze logs.jsonl
+activate Analyze
+Analyze --> Eval : write analysis_report.md
+deactivate Analyze
+
+note right of Bot
+Possible failure points:
+- empty or corrupted index
+- invalid chunks/metadata
+- LLM API error / timeout
+end note
+
+@enduml
+
