@@ -1,0 +1,59 @@
+@startuml
+title Task6_Pipeline_Sequence
+
+actor Scheduler as Scheduler
+participant DockerCron as DockerCron
+participant UpdateIndex as UpdateIndex
+participant CreateTerms as CreateTerms
+participant Downloader as Downloader
+participant Extractor as Extractor
+participant Replacer as Replacer
+participant KB as KB
+participant State as State
+participant BuildIndex as BuildIndex
+participant VectorIndex as VectorIndex
+
+Scheduler -> DockerCron : запуск по расписанию
+DockerCron -> UpdateIndex : запуск update_index.py
+
+note right of UpdateIndex
+update_index.py выполняет шаги как run_task2.py,
+а индекс пересобирает только если изменилась knowledge_base/*.txt
+end note
+
+alt terms_map.json отсутствует
+  UpdateIndex -> CreateTerms : выполнить create_terms_map.py
+  CreateTerms -> KB : записать knowledge_base/README.md
+  CreateTerms -> UpdateIndex : terms_map.json создан
+else terms_map.json уже есть
+  UpdateIndex -> UpdateIndex : пропустить create_terms_map.py
+end
+
+UpdateIndex -> Downloader : выполнить download_naruto_pages.py
+Downloader -> UpdateIndex : сохранить raw_pages/*.html и metadata.json
+
+UpdateIndex -> Extractor : выполнить extract_text_from_html.py
+Extractor -> UpdateIndex : сохранить cleaned_texts/*.txt и processing_metadata.json
+
+UpdateIndex -> Replacer : выполнить apply_replacements.py
+Replacer -> KB : записать knowledge_base/*.txt
+Replacer -> KB : записать knowledge_base/replacement_metadata.json
+Replacer -> KB : скопировать terms_map.json в knowledge_base/terms_map.json
+
+UpdateIndex -> KB : просканировать knowledge_base/*.txt и посчитать хэши
+UpdateIndex -> State : прочитать state/kb_hashes.json
+
+alt changes_detected (added/changed/removed)
+  UpdateIndex -> VectorIndex : сделать бэкап и очистить vector_index/
+  UpdateIndex -> BuildIndex : выполнить build_index.py
+  BuildIndex -> VectorIndex : записать векторный индекс (Chroma persist)
+  BuildIndex -> UpdateIndex : вывести статистику по документам/чанкам
+  UpdateIndex -> State : записать state/kb_hashes.json
+else no_changes
+  UpdateIndex -> UpdateIndex : вывести "изменений нет — индекс не пересобираю"
+end
+
+UpdateIndex -> DockerCron : завершить работу (exit 0)
+
+@enduml
+
