@@ -30,7 +30,8 @@ WORKDIR /app
 COPY update_index.py build_index.py ./
 COPY create_terms_map.py download_naruto_pages.py extract_text_from_html.py apply_replacements.py ./
 COPY entrypoint.sh ./
-RUN chmod +x /app/entrypoint.sh
+RUN sed -i 's/\r$//' /app/entrypoint.sh && \
+    chmod +x /app/entrypoint.sh
 
 ENV PYTHONUNBUFFERED=1
 ENV CRON_SCHEDULE="0 6 * * *"
