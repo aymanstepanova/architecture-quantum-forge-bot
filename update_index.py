@@ -15,6 +15,7 @@ import os
 import subprocess
 import sys
 import shutil
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -26,6 +27,42 @@ VECTOR_DB_DIR = ROOT / "vector_index"
 STATE_DIR = ROOT / "state"
 KB_STATE_FILE = STATE_DIR / "kb_hashes.json"
 LOGS_DIR = ROOT / "logs"
+
+
+def _parse_major(version_str: str) -> int:
+    try:
+        return int((version_str or "0").split(".")[0])
+    except Exception:
+        return 0
+
+
+def assert_supported_versions() -> Tuple[bool, str]:
+    """
+    Проверка совместимости окружения. Возвращает (ok, message).
+    """
+    try:
+        import chromadb  # type: ignore
+        chroma_ver = getattr(chromadb, "__version__", "0")
+    except Exception:
+        chroma_ver = "0"
+
+    try:
+        import langchain  # type: ignore
+        lc_ver = getattr(langchain, "__version__", "0")
+    except Exception:
+        lc_ver = "0"
+
+    if _parse_major(chroma_ver) >= 1 or _parse_major(lc_ver) >= 1:
+        return (
+            False,
+            "Несовместимые версии зависимостей для этого проекта.\n"
+            f"- chromadb: {chroma_ver}\n"
+            f"- langchain: {lc_ver}\n\n"
+            "Используйте зависимости из requirements_task6.txt (chromadb 0.5.x и langchain 0.x), "
+            "затем пересоберите индекс.",
+        )
+
+    return True, ""
 
 def _base_env() -> dict:
     env = os.environ.copy()
@@ -140,6 +177,26 @@ def backup_and_clear_vector_index() -> None:
     shutil.rmtree(VECTOR_DB_DIR, ignore_errors=True)
 
 def main() -> int:
+    ok, msg = assert_supported_versions()
+    if not ok:
+        started_at = _utc_now_iso()
+        log_path = _write_run_log(
+            {
+                "timestamp_start": started_at,
+                "timestamp_end": _utc_now_iso(),
+                "status": "failed",
+                "rebuilt_index": False,
+                "changed_files": [],
+                "removed_files": [],
+                "kb_txt_files": len(_compute_kb_hashes()),
+                "index_stats": _dir_stats(VECTOR_DB_DIR),
+                "errors": [{"step": "env_check", "error": msg}],
+            }
+        )
+        print(f"[ERROR] {msg}")
+        print(f"[LOG] {log_path}")
+        return 0
+
     started_at = _utc_now_iso()
     errors: List[Dict[str, Any]] = []
     rebuilt_index = False
