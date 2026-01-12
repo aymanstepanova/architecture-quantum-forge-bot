@@ -171,16 +171,16 @@
     {
       "input": "cleaned_texts\\Minato_Namikaze.txt",
       "output": "knowledge_base\\Minato_Namikaze.txt",
-      "replacements": 690,
-      "original_length": 42991,
-      "new_length": 43136
+      "replacements": 691,
+      "original_length": 43197,
+      "new_length": 43340
     },
     {
       "input": "cleaned_texts\\Naruto_Uzumaki.txt",
       "output": "knowledge_base\\Naruto_Uzumaki.txt",
-      "replacements": 3293,
-      "original_length": 227258,
-      "new_length": 226710
+      "replacements": 3295,
+      "original_length": 227385,
+      "new_length": 226833
     },
     {
       "input": "cleaned_texts\\Obito_Uchiha.txt",
@@ -241,9 +241,9 @@
     {
       "input": "cleaned_texts\\Sasuke_Uchiha.txt",
       "output": "knowledge_base\\Sasuke_Uchiha.txt",
-      "replacements": 3083,
-      "original_length": 199723,
-      "new_length": 198746
+      "replacements": 3082,
+      "original_length": 199716,
+      "new_length": 198739
     },
     {
       "input": "cleaned_texts\\Senju_Clan.txt",
@@ -270,8 +270,8 @@
       "input": "cleaned_texts\\Shikamaru_Nara.txt",
       "output": "knowledge_base\\Shikamaru_Nara.txt",
       "replacements": 1024,
-      "original_length": 145190,
-      "new_length": 146392
+      "original_length": 145303,
+      "new_length": 146505
     },
     {
       "input": "cleaned_texts\\Shinobi.txt",
@@ -312,8 +312,8 @@
       "input": "cleaned_texts\\Uchiha_Clan.txt",
       "output": "knowledge_base\\Uchiha_Clan.txt",
       "replacements": 270,
-      "original_length": 14402,
-      "new_length": 14643
+      "original_length": 14394,
+      "new_length": 14635
     },
     {
       "input": "cleaned_texts\\Uzumaki_Clan.txt",
@@ -326,6 +326,6 @@
   "failed": [],
   "total_files": 46,
   "success": 46,
-  "total_replacements": 27652,
+  "total_replacements": 27654,
   "terms_map_file": "terms_map.json"
 }

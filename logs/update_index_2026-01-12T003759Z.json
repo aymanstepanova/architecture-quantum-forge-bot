@@ -1,0 +1,15 @@
+{
+  "timestamp_start": "2026-01-12T00:31:10+00:00",
+  "timestamp_end": "2026-01-12T00:37:59+00:00",
+  "status": "success",
+  "rebuilt_index": false,
+  "changed_files": [],
+  "removed_files": [],
+  "kb_txt_files": 47,
+  "index_stats": {
+    "exists": true,
+    "files": 6,
+    "bytes": 48328264
+  },
+  "errors": []
+}
