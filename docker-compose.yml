@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  kb-updater:
+    build: .
+    environment:
+      # каждый день в 06:00 (UTC)
+      - CRON_SCHEDULE=0 6 * * *
+    volumes:
+      - ./raw_pages:/app/raw_pages
+      - ./cleaned_texts:/app/cleaned_texts
+      - ./knowledge_base:/app/knowledge_base
+      - ./vector_index:/app/vector_index
+      - ./logs:/app/logs
+      - ./state:/app/state
+      # кеш HuggingFace, чтобы не скачивать модель каждый раз при пересборке
+      - ./hf_cache:/root/.cache/huggingface
+    restart: unless-stopped
+
