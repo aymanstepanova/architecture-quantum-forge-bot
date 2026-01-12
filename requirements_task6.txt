@@ -5,7 +5,8 @@ langchain-text-splitters>=0.0.1
 langchain-chroma>=0.1.0
 langchain-huggingface>=0.1.0
 # Pin: чтобы не получать несовместимые форматы persist при обновлениях
-chromadb==0.4.24
+chromadb>=0.5.0
+numpy<2.0.0
 sentence-transformers>=2.3.0
 tiktoken>=0.5.2
 requests>=2.31.0

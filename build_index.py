@@ -7,6 +7,15 @@
 - LangChain для разбиения текстов на чанки
 """
 
+# Исправление совместимости NumPy 2.0 с chromadb
+import numpy as np
+if not hasattr(np, 'float_'):
+    np.float_ = np.float64
+if not hasattr(np, 'int_'):
+    np.int_ = np.int64
+if not hasattr(np, 'uint'):
+    np.uint = np.uint64
+
 import os
 import re
 import time
