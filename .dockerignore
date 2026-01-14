@@ -1,0 +1,19 @@
+__pycache__/
+**/__pycache__/
+*.pyc
+.venv/
+.git/
+.idea/
+.vscode/
+
+# Data / artifacts (mounted as volumes in docker-compose)
+raw_pages/
+cleaned_texts/
+knowledge_base/
+vector_index/
+vector_index_backup/
+logs/
+state/
+hf_cache/
+screenshots/
+

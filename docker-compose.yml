@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  # Контейнер для обновления векторного индекса по расписанию
+  kb-updater:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: kb-updater
+    container_name: kb-updater
+    environment:
+      - CRON_SCHEDULE=${CRON_SCHEDULE:-0 6 * * *}
+    volumes:
+      - ./raw_pages:/app/raw_pages
+      - ./cleaned_texts:/app/cleaned_texts
+      - ./knowledge_base:/app/knowledge_base
+      - ./vector_index:/app/vector_index
+      - ./logs:/app/logs
+      - ./state:/app/state
+      - ./hf_cache:/root/.cache/huggingface
+    restart: unless-stopped
+
+  # Контейнер для RAG-бота (чат-бот)
+  rag-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: rag-bot
+    container_name: rag-bot
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - LLM_PROVIDER=${LLM_PROVIDER:-openai}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+    volumes:
+      - ./vector_index:/app/vector_index
+      - ./knowledge_base:/app/knowledge_base
+      - ./hf_cache:/root/.cache/huggingface
+    restart: unless-stopped
+    depends_on:
+      - kb-updater

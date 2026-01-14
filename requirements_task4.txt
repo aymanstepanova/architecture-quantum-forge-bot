@@ -1,0 +1,21 @@
+# Зависимости для задания 4: RAG-бот с техниками промптинга
+
+# Зависимости из задания 3 (векторный индекс)
+langchain>=0.1.0,<1.0.0
+langchain-community>=0.0.20,<1.0.0
+langchain-core>=0.1.0,<1.0.0
+langchain-text-splitters>=0.0.1,<1.0.0
+langchain-chroma>=0.1.0,<1.0.0
+langchain-huggingface>=0.1.0,<1.0.0
+# ВАЖНО: chromadb 1.x ломает совместимость persist/HNSW в этом проекте.
+chromadb>=0.5.0,<0.6.0
+numpy<2.0.0
+sentence-transformers>=2.3.0
+tiktoken>=0.5.2
+
+# Зависимости для RAG-бота
+openai>=1.0.0  # Нужна для OpenAI API и Ollama (Ollama использует OpenAI-совместимый API)
+
+# Опционально: для REST API интерфейса (если нужно)
+# fastapi>=0.104.0
+# uvicorn>=0.24.0

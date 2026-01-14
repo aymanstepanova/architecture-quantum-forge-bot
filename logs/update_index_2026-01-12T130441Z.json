@@ -1,0 +1,22 @@
+{
+  "timestamp_start": "2026-01-12T12:57:10+00:00",
+  "timestamp_end": "2026-01-12T13:04:41+00:00",
+  "status": "success",
+  "rebuilt_index": true,
+  "changed_files": [
+    "Minato_Namikaze.txt",
+    "Naruto_Uzumaki.txt",
+    "Sasuke_Uchiha.txt",
+    "Shikamaru_Nara.txt",
+    "Uchiha_Clan.txt"
+  ],
+  "removed_files": [],
+  "kb_txt_files": 47,
+  "index_stats": {
+    "exists": true,
+    "files": 6,
+    "bytes": 48283208
+  },
+  "errors": [],
+  "message": "index updated at 2026-01-12T13:04:41+00:00, 5 files changed, 0 removed, 0 errors"
+}

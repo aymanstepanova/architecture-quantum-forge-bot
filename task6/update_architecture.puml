@@ -1,0 +1,30 @@
+@startuml
+title Task6_UpdateIndex_Architecture
+
+actor Scheduler as Scheduler
+component "DockerContainer\n(cron)" as DockerCron
+component "update_index.py" as Update
+component "download_naruto_pages.py\n(API emulation)" as Downloader
+folder "raw_pages/" as Raw
+folder "cleaned_texts/" as Cleaned
+folder "knowledge_base/" as KB
+database "ChromaDB\n(vector_index/)" as Chroma
+folder "logs/" as Logs
+folder "state/" as State
+
+Scheduler --> DockerCron : запускает по расписанию
+DockerCron --> Update : запуск скрипта
+
+Update --> Downloader : получение новых\n (всех) страниц
+Downloader --> Raw : сохранение *.html
+
+Update --> Raw : парсит html страницы
+Update --> Cleaned : HTML -> cleaned text
+Update --> KB : применяет трансформацию\n (перевод на внутренний язык)
+
+Update --> Chroma : Создание/обновление векторной БД\n chunk + embeddings\nadd/delete(ids)
+Update --> State : сохранение состояния\n в index_state.json
+Update --> Logs : сохранение логов\n в update_index_*.json
+
+@enduml
+
